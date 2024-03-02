@@ -7,6 +7,12 @@ class TextSummarizer:
         self.text = text
 
     def summarize_text(self):
+        """
+        Summarize the input text using the OpenAI GPT-3.5 Turbo model.
+
+        Returns:
+        - str: The summarized text.
+        """
         try:
             print(Colors.YELLOW + "Summarizing text..." + Colors.RESET)
             response = self.client.chat.completions.create(
@@ -17,13 +23,21 @@ class TextSummarizer:
                     {"role": "user", "content": self.text},
                 ]
             )
-            print("Summarized text:" + f"{response.choices[0].message.content}")
+            summarized_text = response.choices[0].message.content
+            print("Summarized text: " + summarized_text)
         except Exception as e:
             print(Colors.RED + f"Error during text summarization: {e}" + Colors.RESET)
             return None
-        return response.choices[0].message.content
+        return summarized_text
 
     def write_summary_to_file(self, summary, output_file):
+        """
+        Write the provided summary to a file.
+
+        Parameters:
+        - summary (str): The summarized text to be written to the file.
+        - output_file (str): The path to the output file.
+        """
         try:
             if summary is not None:
                 print(Colors.YELLOW + "Writing summary to file..." + Colors.RESET)

@@ -21,8 +21,10 @@ output_summary_file_path = "resources/summarized-audio.txt"
 # transcription_result = transcriber.transcribe_audio()
 # transcriber.write_transcription_to_file(transcription_result, output_transcription_file_path)
 
+# Temp opens transcription file without needing to run the above code
 with open ("resources/transcribed-audio.txt", "r") as file:
     transcription_result = file.read()
+
 # Summarize text
 summarizer = TextSummarizer(openai_client, transcription_result)
 summarized_text = summarizer.summarize_text()
